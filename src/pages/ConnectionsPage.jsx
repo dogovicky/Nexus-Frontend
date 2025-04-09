@@ -15,7 +15,7 @@ const ConnectionsPage = () => {
         const token = localStorage.getItem("authToken");
 
         const resConnections = await fetch(
-          `http://localhost:8080/api/connections`,
+          `https://nexus-theta-six.vercel.app/api/connections`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -26,7 +26,7 @@ const ConnectionsPage = () => {
         setConnections(dataConnections.data || []);
 
         const resSuggestions = await fetch(
-          `http://localhost:8080/api/users/suggestions`,
+          `https://nexus-theta-six.vercel.app/api/users/suggestions`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ const ConnectionsPage = () => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await fetch(
-        `http://localhost:8080/api/connections/${targetUsername}`,
+        `https://nexus-theta-six.vercel.app/api/connections/${targetUsername}`,
         {
           method: "POST",
           headers: {

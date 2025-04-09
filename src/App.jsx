@@ -70,6 +70,7 @@ const App = () => {
           <SideBar />
           <div className="flex-grow-1">
             <Routes>
+              <Route path="/" element={<LoginPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
 

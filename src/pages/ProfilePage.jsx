@@ -144,7 +144,7 @@ const ProfilePage = () => {
     const fetchProfileData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/profile?username=${user.username}`,
+          `https://nexus-theta-six.vercel.app/profile?username=${user.username}`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,

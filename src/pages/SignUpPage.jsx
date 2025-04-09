@@ -25,7 +25,10 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/auth/signup", formData);
+      await axios.post(
+        "https://nexus-theta-six.vercel.app/auth/signup",
+        formData
+      );
       alert("Signup successful. Please login.");
       navigate("/");
     } catch (err) {

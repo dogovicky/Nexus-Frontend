@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_BASE = "http://localhost:8080/api/messages";
+const API_BASE = "https://nexus-theta-six.vercel.app/api/messages";
 
 const MessagePage = ({ selectedUser, token, user }) => {
   const [messages, setMessages] = useState([]);

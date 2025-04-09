@@ -31,11 +31,15 @@ const HomePage = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/create-post", formData, {
-        headers: {
-          Authorization: `Bearer ${user.token}`, // Use token from user object
-        },
-      });
+      await axios.post(
+        "https://nexus-theta-six.vercel.app/api/create-post",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`, // Use token from user object
+          },
+        }
+      );
       alert("Event created successfully");
       resetForm();
       setShowForm(false);
