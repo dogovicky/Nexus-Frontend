@@ -38,6 +38,7 @@ const HomePage = () => {
           headers: {
             Authorization: `Bearer ${user.token}`, // Use token from user object
           },
+          mode: "no-cors",
         }
       );
       alert("Event created successfully");

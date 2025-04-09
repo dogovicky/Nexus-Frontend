@@ -29,6 +29,7 @@ const LoginPage = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          mode: "no-cors",
           body: JSON.stringify(credentials),
           credentials: "include",
         }
