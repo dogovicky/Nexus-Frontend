@@ -1,123 +1,108 @@
-// src/pages/MessagesPage.js
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { fetchMessages, sendMessage, fetchConversations } from "../api/Message";
-import { ListGroup, Button, Form, Col, Row, Card } from "react-bootstrap";
-import useChatChannel from "../hooks/useChatChannel";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const MessagesPage = () => {
-  const { user } = useAuth();
-  const [conversations, setConversations] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+const API_BASE = "http://localhost:8080/api/messages";
+
+const MessagePage = ({ selectedUser, token, user }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
-  const { sendMessage: sendRealtimeMessage } = useChatChannel(
-    user.username,
-    (payload) => {
-      if (payload.from === selectedUser) {
-        setMessages((prev) => [
-          ...prev,
-          { sender: payload.from, content: payload.content },
-        ]);
-      }
+  useEffect(() => {
+    // Fetch the conversation messages when the page loads or user changes
+    fetchMessages(user.username, selectedUser.username, token);
+  }, [user.username, selectedUser.username, token]);
+
+  // Fetch messages between the current user and the selected user
+  const fetchMessages = async (senderUsername, recipientUsername, token) => {
+    try {
+      const response = await axios.get(`${API_BASE}/chat`, {
+        params: { sender: senderUsername, recipient: recipientUsername },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setMessages(response.data.data); // Assuming the response data is in `data`
+    } catch (error) {
+      console.error("Error fetching messages:", error);
     }
-  );
+  };
 
-  useEffect(() => {
-    const loadConversations = async () => {
-      const data = await fetchConversations(user.username);
-      setConversations(data);
-    };
-    loadConversations();
-  }, [user.username]);
-
-  useEffect(() => {
-    const loadMessages = async () => {
-      if (selectedUser) {
-        const data = await fetchMessages(user.username, selectedUser);
-        setMessages(data);
-      }
-    };
-    loadMessages();
-  }, [selectedUser, user.username]);
-
+  // Send message handler
   const handleSend = async () => {
     if (!newMessage.trim()) return;
-    sendRealtimeMessage(selectedUser, newMessage);
-    setMessages((prev) => [
-      ...prev,
-      { sender: user.username, content: newMessage },
+
+    // Send the message to both UI and backend
+    await sendMessage(user.username, selectedUser.username, newMessage, token);
+
+    // Update messages in the UI
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        senderUsername: user.username,
+        recipientUsername: selectedUser.username,
+        messageText: newMessage,
+        timestamp: new Date().toISOString(),
+      },
     ]);
     setNewMessage("");
   };
 
+  // Send message to backend and save it in the database
+  const sendMessage = async (
+    senderUsername,
+    recipientUsername,
+    messageText,
+    token
+  ) => {
+    try {
+      const payload = {
+        senderUsername,
+        recipientUsername,
+        messageText,
+      };
+      await axios.post(`${API_BASE}/send`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
   return (
-    <Row className="p-3">
-      <Col md={4}>
-        <h5>Conversations</h5>
-        <ListGroup>
-          {conversations.map((convUser) => (
-            <ListGroup.Item
-              key={convUser}
-              action
-              active={convUser === selectedUser}
-              onClick={() => setSelectedUser(convUser)}
-            >
-              {convUser}
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </Col>
-      <Col md={8}>
-        {selectedUser ? (
-          <>
-            <h5>Chat with {selectedUser}</h5>
-            <Card
-              className="mb-3"
-              style={{ height: "400px", overflowY: "scroll" }}
-            >
-              <Card.Body>
-                {messages.map((msg, idx) => (
-                  <div
-                    key={idx}
-                    className={`mb-2 ${
-                      msg.sender === user.username ? "text-end" : "text-start"
-                    }`}
-                  >
-                    <strong>{msg.sender}:</strong> {msg.content}
-                  </div>
-                ))}
-              </Card.Body>
-            </Card>
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSend();
-              }}
-            >
-              <Row>
-                <Col xs={10}>
-                  <Form.Control
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="Type a message..."
-                  />
-                </Col>
-                <Col xs={2}>
-                  <Button type="submit" variant="primary">
-                    Send
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
-          </>
-        ) : (
-          <p>Select a conversation to start messaging</p>
-        )}
-      </Col>
-    </Row>
+    <div className="message-container">
+      <div className="message-header">
+        <h3>Conversation with {selectedUser.username}</h3>
+      </div>
+
+      <div className="messages-list">
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={
+              message.senderUsername === user.username ? "sent" : "received"
+            }
+          >
+            <div className="message-bubble">
+              <strong>{message.senderUsername}:</strong> {message.messageText}
+              <br />
+              {/* <span>{new Date(message.timestamp).toLocaleString()}</span> */}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="message-input">
+        <textarea
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Type your message"
+        />
+        <button onClick={handleSend}>Send</button>
+      </div>
+    </div>
   );
 };
 
-export default MessagesPage;
+export default MessagePage;
