@@ -1,0 +1,60 @@
+.connections-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.connections-heading {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.connection-card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.connection-card:hover {
+  transform: translateY(-2px);
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.user-full-name {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.user-username {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.connect-btn {
+  background-color: #3498db;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.connect-btn:hover {
+  background-color: #2980b9;
+}
+
+.section-divider {
+  margin: 2rem 0;
+  border-top: 1px solid #eee;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}

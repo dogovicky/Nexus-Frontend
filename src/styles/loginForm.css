@@ -1,0 +1,43 @@
+/* Login Form Styles */
+.form-floating > .form-control {
+    height: 3.5rem;
+    border: 1px solid #e0e0e0;
+    transition: border-color 0.3s ease;
+}
+
+.form-floating > label {
+    padding: 1rem 0.75rem;
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+}
+
+.btn-primary {
+    padding: 12px 40px;
+    background-color: #4a90e2;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #357abd;
+    transform: none;
+}
+
+.alert {
+    border: none;
+    border-radius: 8px;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #991b1b;
+}

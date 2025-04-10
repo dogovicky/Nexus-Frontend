@@ -14,58 +14,121 @@ const Sidebar = () => {
 
   return (
     <div
-      className="d-flex flex-column flex-shrink-0 p-3 bg-light"
-      style={{ width: "250px", height: "100vh" }}
+      className="sidebar"
+      style={{
+        width: "280px",
+        height: "100vh",
+        backgroundColor: "#ffffff",
+        borderRight: "1px solid #e2e8f0",
+        padding: "1.5rem",
+        display: "flex",
+        flexDirection: "column",
+        boxShadow: "2px 0 8px rgba(0, 0, 0, 0.05)"
+      }}
     >
-      <h4 className="mb-4">Collab</h4>
-      <ul className="nav nav-pills flex-column mb-auto">
-        {user && (
-          <>
-            <li className="nav-item">
-              <Link to="/home" className="nav-link link-dark">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/connections" className="nav-link link-dark">
-                Connections
-              </Link>
-            </li>
-            <li>
-              <Link to="/messages" className="nav-link link-dark">
-                Messages
-              </Link>
-            </li>
-            <li>
-              <Link to="/profile" className="nav-link link-dark">
-                Profile
-              </Link>
-            </li>
-            <li>
-              <button
-                className="btn btn-link nav-link link-dark"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
-            </li>
-          </>
-        )}
-        {!user && (
-          <>
-            <li>
-              <Link to="/login" className="nav-link link-dark">
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link to="/signup" className="nav-link link-dark">
-                Sign Up
-              </Link>
-            </li>
-          </>
-        )}
-      </ul>
+      <h1 style={{ 
+        fontSize: "1.8rem", 
+        color: "#1e3a8a",
+        marginBottom: "2rem",
+        fontWeight: "600"
+      }}>
+        Nexus
+      </h1>
+      
+      <nav style={{ flex: 1 }}>
+        <ul style={{ 
+          listStyle: "none", 
+          padding: 0,
+          margin: 0,
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.5rem"
+        }}>
+          {user && (
+            <>
+              {[
+                { to: "/home", label: "Home" },
+                { to: "/connections", label: "Connections" },
+                { to: "/messages", label: "Messages" },
+                { to: "/profile", label: "Profile" }
+              ].map((item) => (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    style={{
+                      display: "block",
+                      padding: "0.75rem 1rem",
+                      borderRadius: "8px",
+                      color: "#1e293b",
+                      fontWeight: "500",
+                      transition: "all 0.2s ease-in-out",
+                      ':hover': {
+                        backgroundColor: "#f1f5f9",
+                        color: "#2563eb"
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <button
+                  onClick={handleLogout}
+                  style={{
+                    width: "100%",
+                    padding: "0.75rem 1rem",
+                    borderRadius: "8px",
+                    backgroundColor: "#3b82f6",
+                    color: "#ffffff",
+                    border: "none",
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    transition: "background-color 0.2s ease-in-out",
+                    ':hover': {
+                      backgroundColor: "#2563eb"
+                    },
+                    ':focus': {
+                      outline: "3px solid #93c5fd",
+                      outlineOffset: "2px"
+                    }
+                  }}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
+          {!user && (
+            <>
+              {[
+                { to: "/login", label: "Login" },
+                { to: "/signup", label: "Sign Up" }
+              ].map((item) => (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    style={{
+                      display: "block",
+                      padding: "0.75rem 1rem",
+                      borderRadius: "8px",
+                      color: "#1e293b",
+                      fontWeight: "500",
+                      transition: "all 0.2s ease-in-out",
+                      ':hover': {
+                        backgroundColor: "#f1f5f9",
+                        color: "#2563eb"
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </>
+          )}
+        </ul>
+      </nav>
     </div>
   );
 };

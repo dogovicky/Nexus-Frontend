@@ -1,0 +1,55 @@
+.signup-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.signup-card {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.signup-header {
+  color: #2c3e50;
+}
+
+.form-floating input,
+.form-floating select {
+  height: 3.5rem;
+  border: 1px solid #e0e0e0;
+  transition: border-color 0.3s ease;
+}
+
+.form-floating > label {
+  padding: 1rem 0.75rem;
+}
+
+.form-floating input:focus,
+.form-floating select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+}
+
+.signup-btn {
+  background-color: #4a90e2;
+  border: none;
+  padding: 12px 40px;
+  transition: background-color 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: #357abd;
+}
+
+.alert {
+  border: none;
+  border-radius: 8px;
+}
+
+.alert-danger {
+  background-color: #fee2e2;
+  color: #991b1b;
+}

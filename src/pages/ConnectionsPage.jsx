@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext"; // Import AuthContext
+import "../styles/connections.css";
 
 const ConnectionsPage = () => {
   const { user } = useAuth();
@@ -71,18 +72,22 @@ const ConnectionsPage = () => {
     }
   };
 
-  if (loading) return <Spinner animation="border" variant="primary" />;
+  if (loading) return (
+    <div className="loading-spinner">
+      <Spinner animation="border" variant="primary" />
+    </div>
+  );
 
   return (
-    <div className="p-3">
-      <h3>Your Connections</h3>
+    <div className="connections-container">
+      <h3 className="connections-heading">Your Connections</h3>
       <div className="mb-4">
         {connections.length > 0 ? (
           connections.map((user) => (
-            <Card className="mb-2" key={user.username}>
+            <Card className="connection-card" key={user.username}>
               <Card.Body>
-                <Card.Title>{user.fullName}</Card.Title>
-                <Card.Text>@{user.username}</Card.Text>
+                <Card.Title className="user-full-name">{user.fullName}</Card.Title>
+                <Card.Text className="user-username">@{user.username}</Card.Text>
               </Card.Body>
             </Card>
           ))
@@ -91,15 +96,17 @@ const ConnectionsPage = () => {
         )}
       </div>
 
-      <h3>Suggested Users</h3>
+      <div className="section-divider" />
+      
+      <h3 className="connections-heading">Suggested Users</h3>
       {suggestedUsers.length > 0 ? (
         suggestedUsers.map((user) => (
-          <Card className="mb-2" key={user.username}>
+          <Card className="connection-card" key={user.username}>
             <Card.Body>
-              <Card.Title>{user.fullName}</Card.Title>
-              <Card.Text>@{user.username}</Card.Text>
+              <Card.Title className="user-full-name">{user.fullName}</Card.Title>
+              <Card.Text className="user-username">@{user.username}</Card.Text>
               <Button
-                variant="primary"
+                className="connect-btn"
                 onClick={() => handleConnect(user.username)}
               >
                 Connect

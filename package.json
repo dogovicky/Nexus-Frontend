@@ -12,10 +12,12 @@
   "dependencies": {
     "axios": "^1.8.4",
     "bootstrap": "^5.3.5",
+    "phoenix": "^1.7.21",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.5.0"
+    "react-router-dom": "^7.5.0",
+    "sass": "^1.86.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

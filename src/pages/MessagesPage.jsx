@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { fetchMessages, sendMessage, fetchConversations } from "../api/Message";
-import { ListGroup, Button, Form, Col, Row, Card } from "react-bootstrap";
+import { ListGroup, Button, Form, Col, Row } from "react-bootstrap";
 import useChatChannel from "../hooks/useChatChannel";
+import styles from "../styles/MessagesPage.module.css";
 
 const MessagesPage = () => {
   const { user } = useAuth();
@@ -53,10 +54,10 @@ const MessagesPage = () => {
   };
 
   return (
-    <Row className="p-3">
-      <Col md={4}>
-        <h5>Conversations</h5>
-        <ListGroup>
+    <Row className="h-100">
+      <Col md={4} className={styles.conversationsContainer}>
+        <h5 className="p-3">Conversations</h5>
+        <ListGroup className={styles.userList}>
           {conversations.map((convUser) => (
             <ListGroup.Item
               key={convUser}
@@ -71,26 +72,24 @@ const MessagesPage = () => {
       </Col>
       <Col md={8}>
         {selectedUser ? (
-          <>
-            <h5>Chat with {selectedUser}</h5>
-            <Card
-              className="mb-3"
-              style={{ height: "400px", overflowY: "scroll" }}
-            >
-              <Card.Body>
-                {messages.map((msg, idx) => (
-                  <div
-                    key={idx}
-                    className={`mb-2 ${
-                      msg.sender === user.username ? "text-end" : "text-start"
-                    }`}
-                  >
-                    <strong>{msg.sender}:</strong> {msg.content}
-                  </div>
-                ))}
-              </Card.Body>
-            </Card>
+          <div className={styles.chatContainer}>
+            <h5 className="p-3">Chat with {selectedUser}</h5>
+            <div className={styles.messagesContainer}>
+              {messages.map((msg, idx) => (
+                <div
+                  key={idx}
+                  className={`${styles.message} ${
+                    msg.sender === user.username
+                      ? styles.sentMessage
+                      : styles.receivedMessage
+                  }`}
+                >
+                  {msg.content}
+                </div>
+              ))}
+            </div>
             <Form
+              className={styles.messageForm}
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSend();
@@ -105,15 +104,17 @@ const MessagesPage = () => {
                   />
                 </Col>
                 <Col xs={2}>
-                  <Button type="submit" variant="primary">
+                  <Button type="submit" variant="primary" className="w-100">
                     Send
                   </Button>
                 </Col>
               </Row>
             </Form>
-          </>
+          </div>
         ) : (
-          <p>Select a conversation to start messaging</p>
+          <div className="d-flex align-items-center justify-content-center h-100">
+            <p className="text-muted">Select a conversation to start messaging</p>
+          </div>
         )}
       </Col>
     </Row>
