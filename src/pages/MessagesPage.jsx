@@ -1,7 +1,12 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+// src/pages/MessagesPage.js
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { fetchMessages, sendMessage, fetchConversations } from "../api/Message";
+import { ListGroup, Button, Form, Col, Row } from "react-bootstrap";
+import useChatChannel from "../hooks/useChatChannel";
+import styles from "../styles/MessagesPage.module.css";
 
-const API_BASE = "https://nexus-theta-six.vercel.app/api/messages";
+const API_BASE = "http://localhost:8080/api/messages";
 
 const MessagePage = ({ selectedUser, token, user }) => {
   const [messages, setMessages] = useState([]);

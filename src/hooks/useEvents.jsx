@@ -19,7 +19,7 @@ const useEvents = () => {
       console.log("Fetching events for user:", user.username);
       try {
         const res = await axios.get(
-          "https://nexus-theta-six.vercel.app/?username=" + user.username,
+          "http://localhost:8080/?username=" + user.username,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,

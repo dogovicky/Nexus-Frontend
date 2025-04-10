@@ -1,51 +1,3 @@
-// // src/App.js
-// import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import { AuthProvider } from "./context/AuthContext";
-// import LoginPage from "./pages/LoginPage";
-// import SignUpPage from "./pages/SignUpPage";
-// import HomePage from "./pages/HomePage";
-// import ProfilePage from "./pages/ProfilePage";
-// import SideBar from "./components/SideBar";
-// import ProtectedRoute from "./components/ProtectedRoute";
-// import "bootstrap/dist/css/bootstrap.min.css";
-
-// const App = () => {
-//   return (
-//     <AuthProvider>
-//       <Router>
-//         <div className="d-flex">
-//           <SideBar />
-//           <div className="flex-grow-1">
-//             <Routes>
-//               <Route path="/login" element={<LoginPage />} />
-//               <Route path="/signup" element={<SignUpPage />} />
-//               <Route path="/home" element={<HomePage />} />
-//               {/* <Route
-//                 path="/home"
-//                 element={
-//                   <ProtectedRoute>
-
-//                   </ProtectedRoute>
-//                 }
-//               /> */}
-//               <Route
-//                 path="/profile"
-//                 element={
-//                   <ProtectedRoute>
-//                     <ProfilePage />
-//                   </ProtectedRoute>
-//                 }
-//               />
-//             </Routes>
-//           </div>
-//         </div>
-//       </Router>
-//     </AuthProvider>
-//   );
-// };
-
-// export default App;
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext"; // Import AuthProvider
@@ -59,6 +11,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import UpdateProfilePage from "./pages/UpdateProfilePage";
 import ConnectionsPage from "./pages/ConnectionsPage";
 import MessagesPage from "./pages/MessagesPage";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPasswordForm from "./pages/ResetPasswordForm";
 
 const App = () => {
   return (
@@ -73,15 +27,11 @@ const App = () => {
               <Route path="/" element={<LoginPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/validate-account" element={<SignUpPage />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPasswordForm />} />
 
-              <Route
-                path="/home"
-                element={
-                  <ProtectedRoute>
-                    <HomePage />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/home" element={<HomePage />} />
               <Route
                 path="/profile"
                 element={

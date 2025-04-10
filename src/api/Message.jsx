@@ -29,7 +29,7 @@
 
 import axios from "axios";
 
-const API_BASE = "http://localhost:8080/api/messages";
+const API_BASE = "https://nexus-theta-six.vercel.app/api/messages";
 
 export const fetchConversations = async (username, token) => {
   const response = await axios.get(`${API_BASE}/conversations/${username}`, {

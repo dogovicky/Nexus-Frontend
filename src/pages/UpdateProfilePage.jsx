@@ -22,7 +22,7 @@ const UpdateProfilePage = () => {
     const fetchProfileData = async () => {
       try {
         const response = await axios.get(
-          `https://nexus-theta-six.vercel.app/profile?username=${user.username}`,
+          `http://localhost:8080/profile?username=${user.username}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -51,7 +51,7 @@ const UpdateProfilePage = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:8080/profile/update", // API endpoint for updating profile
+        "https://nexus-theta-six.vercel.app/profile/update", // API endpoint for updating profile
         profileData,
         {
           headers: {
