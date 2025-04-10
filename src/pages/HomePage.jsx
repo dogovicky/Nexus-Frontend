@@ -32,7 +32,7 @@ const HomePage = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/create-post", formData, {
+      await axios.post("https://nexus-theta-six.vercel.app/api/create-post", formData, {
         headers: {
           Authorization: `Bearer ${user.token}`, // Use token from user object
         },

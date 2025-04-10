@@ -50,7 +50,7 @@ const ConnectionsPage = () => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await fetch(
-        `http://localhost:8080/api/connections/${targetUsername}`,
+        `https://nexus-theta-six.vercel.app/api/connections/${targetUsername}`,
         {
           method: "POST",
           headers: {

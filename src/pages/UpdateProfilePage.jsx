@@ -51,7 +51,7 @@ const UpdateProfilePage = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:8080/profile/update", // API endpoint for updating profile
+        "https://nexus-theta-six.vercel.app/profile/update", // API endpoint for updating profile
         profileData,
         {
           headers: {
